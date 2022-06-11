@@ -28,3 +28,16 @@ NEXTAUTH_URL=http://localhost:3000
 ```
 npm ci && npm run dev
 ```
+
+## Google Calendar連携のテスト
+
+- Google Calendar APIを有効化する
+- OAuth2 同意画面の作成
+  - テストじゃないとドメインの証明とか割と面倒なので、一旦テストでやる
+  - スコープに `https://www.googleapis.com/auth/admin.directory.resource.calendar` を追加
+  - テストユーザーにテストで利用するアカウントを追加
+- OAuth2 クライアントの作成
+  - 承認済みのリダイレクト URIに `http://localhost:3000/google/calendar` を設定
+    - クライアント側で渡す値と一致しないとおこられる
+  - 生成されたクライアントID・シークレットを `.env` に格納する
+    - `GCP_OAUTH_CLIENT_ID=...`, `GCP_OAUTH_CLIENT_SECRET=...`
